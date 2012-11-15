@@ -12,7 +12,7 @@ object Application extends Controller {
     val r = new java.util.Random()
 
     val enumerator = Enumerator.outputStream { os =>
-      var zip = new ZipOutputStream(os);
+      val zip = new ZipOutputStream(os);
       Range(0, 100).map { i =>
         zip.putNextEntry(new ZipEntry("test-zip/README-"+i+".txt"))
         zip.write("Here are 100000 random numbers:\n".map(_.toByte).toArray)
