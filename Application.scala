@@ -26,7 +26,7 @@ object Application extends Controller {
     }
     Ok.stream(enumerator >>> Enumerator.eof).withHeaders(
       "Content-Type"->"application/zip", 
-      "Content-Disposition"->("attachment; filename=test.zip")
+      "Content-Disposition"->"attachment; filename=test.zip"
     )
   }
 
