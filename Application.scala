@@ -17,7 +17,7 @@ object Application extends Controller {
     )
   }
 
-  def zipFiles = Actino {
+  def zipFiles = Action {
     val files = List(1,2,3).map(_.toString+".txt").map(n => (n, new File(n)))
 
     Ok.chuncked(Enumerator(files).map(multiZipStream(_)) >>> Enumerator.eof).withHeaders(
