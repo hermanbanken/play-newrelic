@@ -43,28 +43,36 @@ object Application extends Controller {
       r
     }
 
-    in.flatMap { case (fileName, is) =>
+    val e = in.flatMap { case (fileName, is) =>
       // Entry header
-      Enumerator(1).map(_ => {
+      Enumerator({
+        //print("f")
         zos.putNextEntry(new ZipEntry(fileName))
         getReset(bs)  
       }) >>>
       // File parts
-      Enumerator.fromStream(is).map(data => {
+      Enumerator.fromStream(is, 64 * 1024).map(data => {
+        //print(".")
         zos.write(data)
         getReset(bs)
       }) >>>
       // End of entry
       Enumerator(1).map(_ => {
+        //print("c")
+        is.close()
         zos.closeEntry()
         getReset(bs)
       })
     } >>> 
     // Close zip
     Enumerator(1).map(_ => {
+      //print("|\n")
       zos.close()
       getReset(bs)
     })
+    
+    // e.onDoneEnumerating({ println("Done streaming") })
+    e
   }
   
   class RandomStream(val count: Int) extends InputStream {

@@ -1,1 +1,1 @@
-More info: [http://blog.greweb.fr/?p=1993](http://blog.greweb.fr/?p=1993)
+Original recipe: [http://blog.greweb.fr/?p=1993](http://blog.greweb.fr/?p=1993)
