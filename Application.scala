@@ -37,8 +37,9 @@ object Application extends Controller {
     val bs = new ByteArrayOutputStream
     val zos = new ZipOutputStream(bs)
 
+    var r : Array[Byte] = null
     def getReset(s: ByteArrayOutputStream) = {
-      val r = s.toByteArray
+      r = s.toByteArray
       s.reset()
       r
     }
