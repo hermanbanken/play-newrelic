@@ -1,6 +1,10 @@
+package controllers
+ 
 import java.io.ByteArrayOutputStream
 import java.util.zip._
+
 import play.api.libs.iteratee._
+
 import scala.concurrent.ExecutionContext.Implicits.global
 
 object ZipTool {
@@ -50,5 +54,4 @@ object ZipTool {
     // e.onDoneEnumerating({ println("Done streaming") })
     e
   }
-
 }
