@@ -1,4 +1,4 @@
-@(title: String)(content: Html)
+@(title: String)(content: Html)(implicit req: RequestHeader)
 
 <!DOCTYPE html>
 
@@ -10,6 +10,17 @@
         <script src="@routes.Assets.at("javascripts/hello.js")" type="text/javascript"></script>
     </head>
     <body>
-        @content
+        Press the following buttons to consume all memory on this JVM:
+
+        <ul>
+            <li><a href="@routes.Application.zipRandom()">by streaming random data</a></li>
+            <li><a href="@routes.Application.manyFutures()">by creating many futures</a></li>
+        </ul>
+
+        Recommended usage:
+        <code>
+            <pre>wget -qO- @routes.Application.zipRandom().absoluteURL() > /dev/null</pre> or
+            <pre>curl -silent @routes.Application.zipRandom().absoluteURL() > /dev/null</pre>
+        </code>
     </body>
 </html>

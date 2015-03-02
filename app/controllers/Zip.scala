@@ -15,6 +15,7 @@ object ZipTool {
   def multiZipStream(in: Enumerator[(String,java.io.InputStream)]) = {
     val bs = new ByteArrayOutputStream
     val zos = new ZipOutputStream(bs)
+    zos.setLevel(ZipOutputStream.STORED)
 
     var r : Array[Byte] = null
     def getReset(s: ByteArrayOutputStream) = {
@@ -26,19 +27,19 @@ object ZipTool {
     val e = in.flatMap { case (fileName, is) =>
       // Entry header
       Enumerator({
-        //print("f")
+//        print(s"f $fileName")
         zos.putNextEntry(new ZipEntry(fileName))
         getReset(bs)  
       }) >>>
       // File parts
       Enumerator.fromStream(is, 64 * 1024).map(data => {
-        //print(".")
+//        print(".")
         zos.write(data)
         getReset(bs)
       }) >>>
       // End of entry
       Enumerator(1).map(_ => {
-        //print("c")
+//        print("c")
         is.close()
         zos.closeEntry()
         getReset(bs)
@@ -46,7 +47,7 @@ object ZipTool {
     } >>> 
     // Close zip
     Enumerator(1).map(_ => {
-      //print("|\n")
+//      print("|\n")
       zos.close()
       getReset(bs)
     })
