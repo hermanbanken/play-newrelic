@@ -1,7 +1,7 @@
-import play.api._
-import play.api.mvc._
-import play.api.libs.iteratee._
+import java.io.ByteArrayOutputStream
 import java.util.zip._
+import play.api.libs.iteratee._
+import scala.concurrent.ExecutionContext.Implicits.global
 
 object ZipTool {
 
